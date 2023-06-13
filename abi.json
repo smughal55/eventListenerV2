@@ -1,0 +1,480 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "usdcDepositTokenAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "btcusdPriceFeedAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__AddressZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetAmountsMustBeEqual",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetDoesNotExist",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetExpired",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetNotActive",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetNotClosed",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetNotPending",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__BetNotSettled",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__CannotJoinBetTwice",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__CannotJoinOwnBet",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__CannotJoinSamePosition",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__NeedsMoreThanZero",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__OnlyCreatorCanCancel",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__OnlyWinnerCanWithdraw",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "BetEngine__UserHasNoBet",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "BetActive",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "BetPending",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+      }
+    ],
+    "name": "BetSettled",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "betClosed",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "betExpired",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "bets",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "creationTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "openingPrice",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum IBetEngine.Position",
+        "name": "creatorPosition",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum IBetEngine.Expiration",
+        "name": "expiration",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum IBetEngine.ClosingTime",
+        "name": "closingTime",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum IBetEngine.Status",
+        "name": "status",
+        "type": "uint8"
+      },
+      {
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "joiner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "btcusdpriceFeed",
+    "outputs": [
+      {
+        "internalType": "contract AggregatorV3Interface",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "cancelBeforeActive",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getBet",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "betId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "creationTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "openingPrice",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum IBetEngine.Position",
+            "name": "creatorPosition",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum IBetEngine.Expiration",
+            "name": "expiration",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum IBetEngine.ClosingTime",
+            "name": "closingTime",
+            "type": "uint8"
+          },
+          {
+            "internalType": "enum IBetEngine.Status",
+            "name": "status",
+            "type": "uint8"
+          },
+          {
+            "internalType": "address",
+            "name": "creator",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "joiner",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "winner",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct IBetEngine.Bet",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getBtcUsdPrice",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum IBetEngine.Position",
+        "name": "_position",
+        "type": "uint8"
+      }
+    ],
+    "name": "joinBet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "enum IBetEngine.Position",
+        "name": "_position",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum IBetEngine.Expiration",
+        "name": "_expiration",
+        "type": "uint8"
+      },
+      {
+        "internalType": "enum IBetEngine.ClosingTime",
+        "name": "_closingTime",
+        "type": "uint8"
+      }
+    ],
+    "name": "openBet",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "settleBet",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usdcDepositToken",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "userBets",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_betId",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]
